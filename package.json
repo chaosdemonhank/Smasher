@@ -21,20 +21,23 @@
     }
   },
   "devDependencies": {
-    "eas-cli": "^16.28.0",
-    "semantic-release": "^21.0.0",
+    "@commitlint/cli": "^17.5.0",
+    "@commitlint/config-conventional": "^17.5.0",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/commit-analyzer": "^9.0.0",
-    "@semantic-release/release-notes-generator": "^10.0.0",
-    "@semantic-release/github": "^10.0.0",
-    "@semantic-release/git": "^10.0.1",
     "@semantic-release/exec": "^6.0.0",
-    "@commitlint/config-conventional": "^17.5.0",
-    "@commitlint/cli": "^17.5.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^10.0.0",
+    "@semantic-release/release-notes-generator": "^10.0.0",
+    "ansi-styles": "^4.3.0",
+    "chalk": "^4.1.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
+    "eas-cli": "^16.28.0",
     "husky": "^8.0.0",
-    "lint-staged": "^13.0.3"
+    "lint-staged": "^13.0.3",
+    "semantic-release": "^21.0.0",
+    "supports-color": "^8.1.1"
   },
   "dependencies": {
     "expo": "^54.0.30",
