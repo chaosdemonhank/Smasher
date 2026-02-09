@@ -60,6 +60,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
 
+    - name: Clear Gradle Cache if Needed
+      run: |
+        if [ -f "app-rn/android/.gradle" ]; then
+          rm -rf ~/.gradle/caches/
+          echo "Cleared Gradle cache for fresh build"
+        fi
+
     - name: Release with Semantic Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
