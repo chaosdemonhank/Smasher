@@ -118,7 +118,7 @@ export const LoginScreen = ({ onLoginSuccess, onBack }: LoginScreenProps) => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/smasherbanner.png')} style={styles.backgroundImage} />
+      <Image source={require('./assets/smasherbanner.png')} style={styles.backgroundImage} />
       <View style={styles.overlay}>
         <KeyboardAvoidingView 
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
