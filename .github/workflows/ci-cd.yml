@@ -1,0 +1,104 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  code-quality:
+    name: Code Quality Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # Server Audit
+      - name: Install Server Dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Lint Server
+        working-directory: ./server
+        run: npm run lint
+
+      # Web Audit
+      - name: Install Web Dependencies
+        working-directory: ./app-web
+        run: npm ci
+
+      - name: Lint Web
+        working-directory: ./app-web
+        run: npm run lint
+
+      # App Audit
+      - name: Install App Dependencies
+        working-directory: ./app-rn
+        run: npm ci
+
+      - name: Lint App
+        working-directory: ./app-rn
+        run: npm run lint
+
+      - name: Type Check App
+        working-directory: ./app-rn
+        run: npm run type-check
+
+  release:
+    name: Release & Deploy
+    needs: code-quality
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+          working-directory: 'app-rn'
+
+      - name: Install Root Dependencies
+        run: npm ci
+
+      - name: Decode Upload Keystore
+        run: |
+          mkdir -p app-rn/android/app
+          echo "${{ secrets.UPLOAD_KEYSTORE_BASE64 }}" | base64 --decode > app-rn/android/app/upload.keystore
+
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MYAPP_UPLOAD_STORE_FILE: upload.keystore
+          MYAPP_UPLOAD_STORE_PASSWORD: ${{ secrets.UPLOAD_STORE_PASSWORD }}
+          MYAPP_UPLOAD_KEY_ALIAS: ${{ secrets.UPLOAD_KEY_ALIAS }}
+          MYAPP_UPLOAD_KEY_PASSWORD: ${{ secrets.UPLOAD_KEY_PASSWORD }}
+        run: npx semantic-release

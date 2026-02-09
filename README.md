@@ -397,6 +397,55 @@ Any analytics or logs are for improving the app and safety.
 - **Frontend:** React Native + Expo
 - **Backend:** NestJS (TypeScript) + TypeORM
 - **Database:** PostgreSQL (hosted on Fly.io)
+
+---
+
+## 🛠️ Development & Contribution
+
+### Prerequisites
+- Node.js 20+
+- Java 17 (for Android build)
+- Android SDK (API 34)
+- Ruby 3.0+ & Bundler (for Fastlane)
+
+### Installation
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   cd app-rn && npm install
+   cd ../server && npm install
+   cd ../app-web && npm install
+   ```
+
+### Code Quality
+Run linting to ensure code quality:
+```bash
+# Mobile App
+cd app-rn && npm run lint
+
+# Backend Server
+cd server && npm run lint
+
+# Web App
+cd app-web && npm run lint
+```
+
+### CI/CD Pipeline
+This project uses **GitHub Actions** for CI/CD:
+1. **Code Quality Audit**: Automatically runs linting and testing on every push.
+2. **Semantic Release**: Automatically bumps version numbers, generates changelogs, and creates GitHub Releases on push to `main`.
+3. **Fastlane**: Builds signed Android APKs and attaches them to the GitHub Release.
+
+### Release Process
+1. Commit changes using **Conventional Commits** (e.g., `feat: add new feature`, `fix: resolve bug`).
+2. Push to `main`.
+3. The CI/CD pipeline will:
+   - Validate code quality.
+   - Calculate the new version.
+   - Update `package.json` and `CHANGELOG.md`.
+   - Build a signed APK using Fastlane.
+   - Publish the release to GitHub with the APK attached.
 - **Realtime:** Uses web sockets for chat
 
 Repo structure (simplified):

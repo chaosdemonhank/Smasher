@@ -50,7 +50,7 @@ async function bootstrap() {
 
     console.log('[bootstrap] About to call NestFactory.create');
     const app = await NestFactory.create(AppModule, {
-      bodyParser: true,
+      bodyParser: false,
       rawBody: true,
     });
     console.log(

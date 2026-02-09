@@ -9,12 +9,7 @@ if (!rawArg) {
 }
 const version = rawArg.startsWith('v') ? rawArg.slice(1) : rawArg;
 
-const files = [
-  'package.json',
-  'server/package.json',
-  'app-rn/package.json',
-  'app-web/package.json'
-];
+const files = ['package.json', 'server/package.json', 'app-rn/package.json', 'app-web/package.json'];
 
 // Also handle app.json specially
 const appJsonPath = 'app-rn/app.json';
@@ -67,9 +62,6 @@ if (fs.existsSync(pApp)) {
     if (pkg.expo && pkg.expo.version !== version) {
       pkg.expo.version = version;
 
-      // Update versionCode for Android
-      // Scheme: major * 10000 + minor * 100 + patch
-      // e.g. 4.3.5 -> 40305
       const parts = version.split('.');
       if (parts.length === 3) {
         const major = parseInt(parts[0], 10);
@@ -93,8 +85,33 @@ if (fs.existsSync(pApp)) {
     }
   } catch (err) {
     console.error(`Failed to update ${appJsonPath}: ${err.message}`);
-    // Don't fail the build for this, but warn
   }
+}
+
+const gradlePath = path.resolve(__dirname, '..', 'app-rn/android/app/build.gradle');
+if (fs.existsSync(gradlePath)) {
+  try {
+    let gradleContent = fs.readFileSync(gradlePath, 'utf8');
+    const parts = version.split('.');
+    if (parts.length === 3) {
+      const major = parseInt(parts[0], 10);
+      const minor = parseInt(parts[1], 10);
+      const patch = parseInt(parts[2], 10);
+      if (!isNaN(major) && !isNaN(minor) && !isNaN(patch)) {
+        const versionCode = major * 10000 + minor * 100 + patch;
+        gradleContent = gradleContent.replace(/versionCode \d+/g, `versionCode ${versionCode}`);
+        gradleContent = gradleContent.replace(/versionName ".*?"/g, `versionName "${version}"`);
+        fs.writeFileSync(gradlePath, gradleContent, 'utf8');
+        console.log(`Updated ${path.relative(path.resolve(__dirname, '..'), gradlePath)} -> ${version}`);
+        changed.push('app-rn/android/app/build.gradle');
+      }
+    }
+  } catch (err) {
+    console.error(`Failed to update build.gradle: ${err.message}`);
+    process.exit(1);
+  }
+} else {
+  console.warn('Skipped app-rn/android/app/build.gradle (not found)');
 }
 
 if (changed.length === 0) {

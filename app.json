@@ -1,7 +1,7 @@
 {
   "expo": {
     "android": {
-      "package": "com.anonymous.smasherapi"
+      "package": "com.smashermain.app"
     }
   }
 }
