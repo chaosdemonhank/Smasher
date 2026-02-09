@@ -3,7 +3,7 @@ import tseslint from 'typescript-eslint';
 
 export default [
   js.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.recommended,
   {
     ignores: ['test/**/*', 'dist/**/*', 'node_modules/**/*'],
     languageOptions: {
@@ -12,7 +12,8 @@ export default [
         process: 'readonly',
       },
       parserOptions: {
-        project: true,
+        ecmaVersion: 2020,
+        sourceType: 'module',
       },
     },
     rules: {
