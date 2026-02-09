@@ -22,6 +22,10 @@ else
     
     # Setup Android project
     cd android
+    
+    # Make gradlew executable
+    chmod +x gradlew
+    
     ./gradlew assembleRelease
     
     # Find the built APK
