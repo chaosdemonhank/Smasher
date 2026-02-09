@@ -169,6 +169,7 @@ export class AuthService {
       });
 
       // Return user without sensitive data
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { passwordHash, ...userWithoutPassword } = user;
       return {
         access_token: accessToken,
@@ -276,6 +277,7 @@ export class AuthService {
       isAdmin: effectiveIsAdmin,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordHash, ...userWithoutPassword } = user;
     return {
       access_token: accessToken,

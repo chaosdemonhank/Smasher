@@ -20,6 +20,7 @@ export class BlocksController {
     @Request() req: any,
     @Body() body: { blockedUserId: string },
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
     await this.blocksService.blockUser(req.user.userId, body.blockedUserId);
     return { message: 'User blocked successfully' };
   }
@@ -29,6 +30,7 @@ export class BlocksController {
     @Request() req: any,
     @Param('blockedUserId') blockedUserId: string,
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
     await this.blocksService.unblockUser(req.user.userId, blockedUserId);
     return { message: 'User unblocked successfully' };
   }
