@@ -5,23 +5,8 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: [
-      'test/**/*', 
-      'dist/**/*', 
-      'node_modules/**/*', 
-      '*.js',
-      'scripts/**/*',
-      'fix-lint.js'
-    ],
+    files: ['src/**/*.ts'],
     languageOptions: {
-      globals: {
-        console: 'readonly',
-        process: 'readonly',
-        require: 'readonly',
-        __dirname: 'readonly',
-        module: 'readonly',
-        exports: 'readonly',
-      },
       parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
