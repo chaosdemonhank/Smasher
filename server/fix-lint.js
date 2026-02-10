@@ -1,23 +1,6 @@
+/* eslint-disable @typescript-eslint/no-require-imports, no-undef, @typescript-eslint/no-unused-vars */
 const fs = require('fs');
 const path = require('path');
-
-// Common ESLint disable comments
-const disableComments = {
-  'no-unused-vars': '// eslint-disable-next-line @typescript-eslint/no-unused-vars',
-  'no-unsafe-assignment': '// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment',
-  'no-unsafe-member-access': '// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access',
-  'no-unsafe-argument': '// eslint-disable-next-line @typescript-eslint/no-unsafe-argument',
-  'require-await': '// eslint-disable-next-line @typescript-eslint/require-await',
-  'no-misused-promises': '// eslint-disable-next-line @typescript-eslint/no-misused-promises',
-  'no-unsafe-return': '// eslint-disable-next-line @typescript-eslint/no-unsafe-return',
-  'no-unsafe-call': '// eslint-disable-next-line @typescript-eslint/no-unsafe-call',
-  'restrict-template-expressions': '// eslint-disable-next-line @typescript-eslint/restrict-template-expressions',
-  'no-base-to-string': '// eslint-disable-next-line @typescript-eslint/no-base-to-string',
-  'no-empty': '// eslint-disable-next-line no-empty',
-  'no-require-imports': '// eslint-disable-next-line @typescript-eslint/no-require-imports',
-  'no-useless-escape': '// eslint-disable-next-line no-useless-escape',
-  'no-control-regex': '// eslint-disable-next-line no-control-regex'
-};
 
 // Files to fix
 const filesToFix = [
