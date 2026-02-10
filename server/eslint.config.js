@@ -5,11 +5,15 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['test/**/*', 'dist/**/*', 'node_modules/**/*'],
+    ignores: ['test/**/*', 'dist/**/*', 'node_modules/**/*', '*.js'],
     languageOptions: {
       globals: {
         console: 'readonly',
         process: 'readonly',
+        require: 'readonly',
+        __dirname: 'readonly',
+        module: 'readonly',
+        exports: 'readonly',
       },
       parserOptions: {
         ecmaVersion: 2020,
@@ -31,7 +35,8 @@ export default [
       'no-empty': 'off',
       '@typescript-eslint/no-require-imports': 'off',
       'no-useless-escape': 'off',
-      'no-control-regex': 'off'
+      'no-control-regex': 'off',
+      'no-undef': 'off'
     },
   },
 ];
