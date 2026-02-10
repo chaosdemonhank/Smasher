@@ -18,7 +18,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main.js",
-    "lint": "biome check src --apply",
+    "lint": "biome check src --write",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
