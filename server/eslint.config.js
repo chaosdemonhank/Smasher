@@ -5,7 +5,14 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['test/**/*', 'dist/**/*', 'node_modules/**/*', '*.js'],
+    ignores: [
+      'test/**/*', 
+      'dist/**/*', 
+      'node_modules/**/*', 
+      '*.js',
+      'scripts/**/*',
+      'fix-lint.js'
+    ],
     languageOptions: {
       globals: {
         console: 'readonly',
